@@ -3,9 +3,9 @@ import json
 
 #Have [update, delete] tasks
 
-with open() as file:
+with open("task_storage.json", "a") as file:
     ...
-    
+
 task_types = ["add", "update", "delete"]
 
 if len(sys.argv) < 2:
