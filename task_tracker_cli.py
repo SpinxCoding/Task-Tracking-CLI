@@ -1,9 +1,19 @@
 import sys
 import json
 
-#Have [add, update, delete] tasks
+#Have [update, delete] tasks
 
+with open() as file:
+    ...
+    
 task_types = ["add", "update", "delete"]
+
+if len(sys.argv) < 2:
+    sys.exit("Not enough arguments!")
+
+if sys.argv[1] != "task-cli":
+    sys.exit("Invalid Argument!")
+
 
 def add_task(arg):
     if arg:
