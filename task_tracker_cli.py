@@ -3,8 +3,12 @@ import json
 
 #Have [update, delete] tasks
 
-with open("task_storage.json", "a") as file:
-    ...
+
+
+with open("task_storage.json") as file:
+    id = len(list(file)) + 1
+
+
 
 task_types = ["add", "update", "delete"]
 
