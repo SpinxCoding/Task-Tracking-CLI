@@ -45,13 +45,14 @@ def update_task(cur_id, change):
     if not task_storage:
         sys.exit("Please Add a Task!")
     for i in task_storage:
-        if i["id"] == cur_id:
-            i["task"] == change
+        if i["id"] == cur_id:            
+            task_storage[i["id"] - 1]["task"] = change
             break
         else:
             print(i["id"])
     with open("task_storage.json", "w") as file:
-        ...
+        json.dump(task_storage, file, indent=2)
+    
 
 if sys.argv[2] == task_types[0]:
     add_task(sys.argv[3])
