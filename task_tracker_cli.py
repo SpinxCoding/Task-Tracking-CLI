@@ -40,7 +40,20 @@ def add_task(arg):
         print(f"Task added successfully ({id})")
         return
 
+def update_task(cur_id, change):
+    global task_storage
+    if not task_storage:
+        sys.exit("Please Add a Task!")
+    for i in task_storage:
+        if i["id"] == cur_id:
+            i["task"] == change
+            break
+        else:
+            print(i["id"])
+    with open("task_storage.json", "w") as file:
+        ...
+
 if sys.argv[2] == task_types[0]:
     add_task(sys.argv[3])
-elif sys.argv[2] == task_types[1]:
-    ...
+elif sys.argv[2] == task_types[1] and sys.argv[3].isdigit() and type(sys.argv[4]) == str:
+    update_task(int(sys.argv[3]), sys.argv[4])
