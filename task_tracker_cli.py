@@ -2,6 +2,8 @@ import sys
 import json
 
 
+
+
 with open("task_storage.json", "a") as file:
     pass
 
@@ -26,9 +28,6 @@ with open("task_storage.json") as file:
             id += 1
         else:
             break
-
-task_type = ["add", "update", "delete"]
-
 
 
 def add_task(arg):
@@ -58,7 +57,8 @@ def update_task(cur_id, change):
     sys.exit("Please enter a valid id")
         
             
-    
+def mark_task_done(cur_id):
+    ...
 
 def delete_task(id_del):
     global task_storage
@@ -72,13 +72,20 @@ def delete_task(id_del):
             return
     sys.exit("Please enter a valid id")
         
-   
-    
 
+task_type = ["add", "update", "delete", "mark-done"]
 
+"""mark something done example: 'task-cli mark-done 1'"""
+
+#Add Task
 if sys.argv[2] == task_type[0]:
     add_task(sys.argv[3])
+#Update Task
 elif sys.argv[2] == task_type[1] and sys.argv[3].isdigit() and type(sys.argv[4]) == str:
     update_task(int(sys.argv[3]), sys.argv[4])
+#Remove Task
 elif sys.argv[2] == task_type[2] and len(sys.argv) == 4 and sys.argv[3].isdigit():
     delete_task(int(sys.argv[3]))
+#Mark Task Done
+elif sys.argv[2] == task_type[3] and len(sys.argv) == 4 and sys.argv[3].isdigit():
+    mark_task_done(int(sys.argv[3]))
