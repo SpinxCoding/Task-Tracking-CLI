@@ -47,9 +47,10 @@ def update_task(cur_id, change):
     for i in task_storage:
         if i["id"] == cur_id:            
             task_storage[i["id"] - 1]["task"] = change
-            break
-        else:
-            print(i["id"])
+            return
+    sys.exit("Please enter a valid id")
+        
+            
     with open("task_storage.json", "w") as file:
         json.dump(task_storage, file, indent=2)
     
