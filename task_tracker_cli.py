@@ -57,6 +57,20 @@ def update_task(cur_id, change):
             
     with open("task_storage.json", "w") as file:
         json.dump(task_storage, file, indent=2)
+
+def delete_task(id_del):
+    global task_storage
+    if not task_storage:
+        sys.exit("Please Add a Task!")
+    for i in task_storage:
+        if i["id"] == id_del:            
+            print(task_storage[i["id"] - 1])
+            return
+    sys.exit("Please enter a valid id")
+        
+            
+    with open("task_storage.json", "w") as file:
+        json.dump(task_storage, file, indent=2)
     
 
 
@@ -64,3 +78,5 @@ if sys.argv[2] == task_type[0]:
     add_task(sys.argv[3])
 elif sys.argv[2] == task_type[1] and sys.argv[3].isdigit() and type(sys.argv[4]) == str:
     update_task(int(sys.argv[3]), sys.argv[4])
+elif sys.argv[2] == task_type[2] and len(sys.argv) == 4 and sys.argv[3].isdigit():
+    delete_task(int(sys.argv[3]))
