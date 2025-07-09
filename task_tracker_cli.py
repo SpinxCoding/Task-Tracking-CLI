@@ -21,13 +21,12 @@ with open("task_storage.json") as file:
 
 
 with open("task_storage.json") as file:
-    id = len(task_storage) + 1
-    for i in range(len(task_storage) + 1):
-        for i in task_storage:
-            if id == i["id"]: 
-                id += 1
-                break
-    
+    id = 1
+    for pos, dicts in enumerate(task_storage):
+        if id == dicts["id"]:
+            id += 1
+        else:
+            break
 
 
 task_type = ["add", "update", "delete"]
