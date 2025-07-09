@@ -1,6 +1,12 @@
 import sys
 import json
 
+if len(sys.argv) < 2:
+    sys.exit("Not enough arguments!")
+
+if sys.argv[1] != "task-cli":
+    sys.exit("Invalid Argument!")
+
 #Have [update, delete] tasks
 
 with open("task_storage.json") as file:
@@ -15,13 +21,9 @@ with open("task_storage.json") as file:
 
 
 
-task_types = ["add", "update", "delete"]
+task_type = ["add", "update", "delete"]
 
-if len(sys.argv) < 2:
-    sys.exit("Not enough arguments!")
 
-if sys.argv[1] != "task-cli":
-    sys.exit("Invalid Argument!")
 
 
 def add_task(arg):
@@ -38,5 +40,22 @@ def add_task(arg):
         print(f"Task added successfully ({id})")
         return
 
-if sys.argv[2] == task_types[0]:
+def update_task(cur_id, change):
+    global task_storage
+    if not task_storage:
+        sys.exit("Please Add a Task!")
+    for i in task_storage:
+        if i["id"] == cur_id:            
+            task_storage[i["id"] - 1]["task"] = change
+            return
+    sys.exit("Please enter a valid id")
+        
+            
+    with open("task_storage.json", "w") as file:
+        json.dump(task_storage, file, indent=2)
+    
+
+if sys.argv[2] == task_type[0]:
     add_task(sys.argv[3])
+elif sys.argv[2] == task_type[1] and sys.argv[3].isdigit() and type(sys.argv[4]) == str:
+    update_task(int(sys.argv[3]), sys.argv[4])
