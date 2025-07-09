@@ -28,7 +28,6 @@ with open("task_storage.json") as file:
         else:
             break
 
-
 task_type = ["add", "update", "delete"]
 
 
@@ -68,8 +67,7 @@ def delete_task(id_del):
         sys.exit("Please Add a Task!")
     for i in task_storage:
         if i["id"] == id_del:   
-            x = i
-            task_storage.remove(x)
+            task_storage.remove(i)
             with open("task_storage.json", "w") as file:
                 json.dump(task_storage, file, indent=2)
             return
