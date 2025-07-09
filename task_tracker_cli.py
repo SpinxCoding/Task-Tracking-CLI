@@ -21,7 +21,7 @@ with open("task_storage.json") as file:
 
 
 
-task_types = ["add", "update", "delete"]
+task_type = ["add", "update", "delete"]
 
 
 
@@ -55,7 +55,7 @@ def update_task(cur_id, change):
         json.dump(task_storage, file, indent=2)
     
 
-if sys.argv[2] == task_types[0]:
+if sys.argv[2] == task_type[0]:
     add_task(sys.argv[3])
-elif sys.argv[2] == task_types[1] and sys.argv[3].isdigit() and type(sys.argv[4]) == str:
+elif sys.argv[2] == task_type[1] and sys.argv[3].isdigit() and type(sys.argv[4]) == str:
     update_task(int(sys.argv[3]), sys.argv[4])
