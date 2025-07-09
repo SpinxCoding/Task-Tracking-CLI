@@ -11,7 +11,6 @@ if len(sys.argv) < 2:
 if sys.argv[1] != "task-cli":
     sys.exit("Invalid Argument!")
 
-#Have [update, delete] tasks
 
 with open("task_storage.json") as file:
     try:
