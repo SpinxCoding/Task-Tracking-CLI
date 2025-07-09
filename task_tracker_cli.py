@@ -36,10 +36,10 @@ def add_task(arg):
         with open("task_storage.json", "w") as file:
             global task_storage
             try:
-                task_storage.append({"task": arg, "id": id})
+                task_storage.append({"description": arg, "id": id})
                 json.dump(task_storage, file,indent=2)
             except IndexError:
-                task_storage.append({"task": arg, "id": id})
+                task_storage.append({"description": arg, "id": id})
                 json.dump(task_storage, file)
             file.write("\n")
         print(f"Task added successfully ({id})")
@@ -51,7 +51,7 @@ def update_task(cur_id, change):
         sys.exit("Please Add a Task!")
     for i in enumerate(task_storage):
         if i[1]["id"] == cur_id:
-            task_storage[i[0]]["task"] = change
+            task_storage[i[0]]["description"] = change
             with open("task_storage.json", "w") as file:
                 json.dump(task_storage,file, indent=2)
             return
