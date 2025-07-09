@@ -1,6 +1,10 @@
 import sys
 import json
 
+
+with open("task_storage.json", "w") as file:
+    pass
+
 if len(sys.argv) < 2:
     sys.exit("Not enough arguments!")
 
@@ -54,6 +58,7 @@ def update_task(cur_id, change):
     with open("task_storage.json", "w") as file:
         json.dump(task_storage, file, indent=2)
     
+
 
 if sys.argv[2] == task_type[0]:
     add_task(sys.argv[3])
