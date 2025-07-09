@@ -34,7 +34,6 @@ task_type = ["add", "update", "delete"]
 
 
 
-
 def add_task(arg):
     if arg:
         with open("task_storage.json", "w") as file:
@@ -53,11 +52,11 @@ def update_task(cur_id, change):
     global task_storage
     if not task_storage:
         sys.exit("Please Add a Task!")
-    for i in task_storage:
-        if i["id"] == cur_id:            
-            task_storage[i["id"] - 1]["task"] = change
+    for i in enumerate(task_storage):
+        if i[1]["id"] == cur_id:
+            task_storage[i[0]]["task"] = change
             with open("task_storage.json", "w") as file:
-                json.dump(task_storage, file, indent=2)
+                json.dump(task_storage,file, indent=2)
             return
     sys.exit("Please enter a valid id")
         
@@ -69,7 +68,7 @@ def delete_task(id_del):
     if not task_storage:
         sys.exit("Please Add a Task!")
     for i in task_storage:
-        if i["id"] == id_del:     
+        if i["id"] == id_del:   
             x = i
             task_storage.remove(x)
             with open("task_storage.json", "w") as file:
