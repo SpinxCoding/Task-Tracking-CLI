@@ -2,7 +2,7 @@ import sys
 import json
 
 
-with open("task_storage.json", "w") as file:
+with open("task_storage.json", "a") as file:
     pass
 
 if len(sys.argv) < 2:
@@ -22,7 +22,12 @@ with open("task_storage.json") as file:
 
 with open("task_storage.json") as file:
     id = len(task_storage) + 1
-
+    for i in range(len(task_storage) + 1):
+        for i in task_storage:
+            if id == i["id"]: 
+                id += 1
+                break
+    
 
 
 task_type = ["add", "update", "delete"]
@@ -51,26 +56,28 @@ def update_task(cur_id, change):
     for i in task_storage:
         if i["id"] == cur_id:            
             task_storage[i["id"] - 1]["task"] = change
+            with open("task_storage.json", "w") as file:
+                json.dump(task_storage, file, indent=2)
             return
     sys.exit("Please enter a valid id")
         
             
-    with open("task_storage.json", "w") as file:
-        json.dump(task_storage, file, indent=2)
+    
 
 def delete_task(id_del):
     global task_storage
     if not task_storage:
         sys.exit("Please Add a Task!")
     for i in task_storage:
-        if i["id"] == id_del:            
-            print(task_storage[i["id"] - 1])
+        if i["id"] == id_del:     
+            x = i
+            task_storage.remove(x)
+            with open("task_storage.json", "w") as file:
+                json.dump(task_storage, file, indent=2)
             return
     sys.exit("Please enter a valid id")
         
-            
-    with open("task_storage.json", "w") as file:
-        json.dump(task_storage, file, indent=2)
+   
     
 
 
