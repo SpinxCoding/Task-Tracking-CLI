@@ -8,7 +8,7 @@ import time
 with open("task_storage.json", "a") as file:
     pass
 
-if len(sys.argv) < 2:
+if len(sys.argv) <= 2:
     sys.exit("Not enough arguments!")
 
 if sys.argv[1] != "task-cli":
@@ -104,11 +104,60 @@ def delete_task(id_del):
                 json.dump(task_storage, file, indent=2)
             return
     sys.exit("Please enter a valid id")
-        
 
-"""
-Add timestamp on when task was created called 'createdAt'
-"""
+def task_done():
+    global task_storage
+    any_done = False
+    for loc, info in enumerate(task_storage):
+        if info["status"] == "done":
+            print(f"({info['id']}) '{info['description']}' | Status: {info['status']} | Created: {info['createdAt']} | Last Updated: {info['updatedAt']}")
+            any_done = True
+    if not any_done:
+        sys.exit("No task to list")
+
+def task_todo():
+    global task_storage
+    any_done = False
+    for loc, info in enumerate(task_storage):
+        if info["status"] == "todo":
+            print(f"({info['id']}) '{info['description']}' | Status: {info['status']} | Created: {info['createdAt']} | Last Updated: {info['updatedAt']}")
+            any_done = True
+    if not any_done:
+        sys.exit("No task to list")
+def inprogress():
+    global task_storage
+    any_done = False
+    for loc, info in enumerate(task_storage):
+        if info["status"] == "in-progress":
+            print(f"({info['id']}) '{info['description']}' | Status: {info['status']} | Created: {info['createdAt']} | Last Updated: {info['updatedAt']}")
+            any_done = True
+    if not any_done:
+        sys.exit("No task to list")
+
+def catcher():
+    sys.exit("No task to list")
+
+def get_list():
+    global task_storage
+
+    list_opts = {
+        "done" : task_done,
+        "todo" : task_todo,
+        "in-progress" : inprogress
+    }
+
+    #lists all tasks
+    if len(sys.argv) == 3 and task_storage:
+        print("All Tasks:")
+        for loc, info in enumerate(task_storage):
+            print(f"({info['id']}) '{info['description']}' | Status: {info['status']} | Created: {info['createdAt']} | Last Updated: {info['updatedAt']}")
+    elif len(sys.argv) == 4:
+        functions = list_opts.get(sys.argv[3], catcher)
+        functions()
+    else:
+        sys.exit("No task to list")
+    
+
 
 #Add Task
 if sys.argv[2] == "add":
@@ -125,3 +174,6 @@ elif sys.argv[2] == "mark-done" and len(sys.argv) == 4 and sys.argv[3].isdigit()
 #Mark Task In Progress
 elif sys.argv[2] == "mark-in-progress" and len(sys.argv) == 4 and sys.argv[3].isdigit():
     task_in_progress(int(sys.argv[3]))
+#Fetch lists of users preference
+elif sys.argv[2] == "list":
+    get_list()
