@@ -104,15 +104,39 @@ def delete_task(id_del):
                 json.dump(task_storage, file, indent=2)
             return
     sys.exit("Please enter a valid id")
-        
+
+def task_done():
+    global task_storage
+    any_done = False
+    for loc, info in enumerate(task_storage):
+        if info["status"] == "done":
+            print(f"({info['id']}) '{info['description']}' | Status: {info['status']} | Created: {info['createdAt']} | Last Updated: {info['updatedAt']}")
+            any_done = True
+    if not any_done:
+        sys.exit("No task to list")
+    
+
+def catcher():
+    sys.exit("No task to list")
+
 def get_list():
     global task_storage
+
+    list_opts = {
+        "done" : task_done
+    }
+
+    #lists all tasks
     if len(sys.argv) == 3 and task_storage:
         print("All Tasks:")
         for loc, info in enumerate(task_storage):
             print(f"({info['id']}) '{info['description']}' | Status: {info['status']} | Created: {info['createdAt']} | Last Updated: {info['updatedAt']}")
+    elif len(sys.argv) == 4:
+        functions = list_opts.get(sys.argv[3], catcher)
+        functions()
     else:
         sys.exit("No task to list")
+    
 
 
 #Add Task
