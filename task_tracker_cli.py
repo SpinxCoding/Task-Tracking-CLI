@@ -124,6 +124,15 @@ def task_todo():
             any_done = True
     if not any_done:
         sys.exit("No task to list")
+def inprogress():
+    global task_storage
+    any_done = False
+    for loc, info in enumerate(task_storage):
+        if info["status"] == "in-progress":
+            print(f"({info['id']}) '{info['description']}' | Status: {info['status']} | Created: {info['createdAt']} | Last Updated: {info['updatedAt']}")
+            any_done = True
+    if not any_done:
+        sys.exit("No task to list")
 
 def catcher():
     sys.exit("No task to list")
@@ -133,7 +142,8 @@ def get_list():
 
     list_opts = {
         "done" : task_done,
-        "todo" : task_todo
+        "todo" : task_todo,
+        "in-progress" : inprogress
     }
 
     #lists all tasks
