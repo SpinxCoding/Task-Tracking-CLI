@@ -68,6 +68,17 @@ def mark_task_done(cur_id):
             return
     sys.exit("Please enter a valid ID!")
 
+def task_in_progress(cur_id):
+    if not task_storage:
+        sys.exit("No task available!")
+    for pos, dicts in enumerate(task_storage):
+        if dicts["id"] == cur_id:
+            task_storage[pos]["status"] = "in-progress"
+            with open("task_storage.json", "w") as file:
+                json.dump(task_storage, file, indent= 2)
+            return
+    sys.exit("Please enter a valid ID!")
+
 def delete_task(id_del):
     global task_storage
     if not task_storage:
@@ -95,3 +106,6 @@ elif sys.argv[2] == "delete" and len(sys.argv) == 4 and sys.argv[3].isdigit():
 #Mark Task Done
 elif sys.argv[2] == "mark-done" and len(sys.argv) == 4 and sys.argv[3].isdigit():
     mark_task_done(int(sys.argv[3]))
+#Mark Task In Progress
+elif sys.argv[2] == "mark-in-progress" and len(sys.argv) == 4 and sys.argv[3].isdigit():
+    task_in_progress(int(sys.argv[3]))
