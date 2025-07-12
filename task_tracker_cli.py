@@ -92,7 +92,9 @@ def delete_task(id_del):
     sys.exit("Please enter a valid id")
         
 
-"""mark something done example: 'task-cli mark-done 1'"""
+"""
+Add timestamp on when task was created called 'createdAt'
+"""
 
 #Add Task
 if sys.argv[2] == "add":
