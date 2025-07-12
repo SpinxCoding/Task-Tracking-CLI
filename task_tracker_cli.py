@@ -106,8 +106,13 @@ def delete_task(id_del):
     sys.exit("Please enter a valid id")
         
 def get_list():
-    if len(sys.argv) == 3:
-        print("Getting all lists")
+    global task_storage
+    if len(sys.argv) == 3 and task_storage:
+        print("All Tasks:")
+        for loc, info in enumerate(task_storage):
+            print(f"({info['id']}) '{info['description']}' | Status: {info['status']} | Created: {info['createdAt']} | Last Updated: {info['updatedAt']}")
+    else:
+        sys.exit("No task to list")
 
 
 #Add Task
