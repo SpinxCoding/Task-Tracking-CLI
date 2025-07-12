@@ -2,41 +2,36 @@
   {
     "description": "Go to the gym",
     "id": 1,
-    "status": "todo"
+    "status": "todo",
+    "createdAt": "2025-07-12 03:45:06",
+    "updatedAt": "2025-07-12 03:45:06"
   },
   {
     "description": "Go to the gym",
     "id": 2,
-    "status": "todo"
+    "status": "todo",
+    "createdAt": "2025-07-12 03:45:08",
+    "updatedAt": "2025-07-12 03:45:08"
   },
   {
     "description": "Go to the gym",
     "id": 3,
-    "status": "in-progress"
+    "status": "todo",
+    "createdAt": "2025-07-12 03:45:08",
+    "updatedAt": "2025-07-12 03:45:08"
   },
   {
     "description": "Go to the gym",
     "id": 4,
-    "status": "todo"
+    "status": "todo",
+    "createdAt": "2025-07-12 03:45:08",
+    "updatedAt": "2025-07-12 03:45:08"
   },
   {
     "description": "Go to the gym",
     "id": 5,
-    "status": "todo"
-  },
-  {
-    "description": "Go to the gym",
-    "id": 6,
-    "status": "done"
-  },
-  {
-    "description": "Go to the gym",
-    "id": 8,
-    "status": "done"
-  },
-  {
-    "description": "Go to the gym",
-    "id": 9,
-    "status": "todo"
+    "status": "todo",
+    "createdAt": "2025-07-12 03:45:09",
+    "updatedAt": "2025-07-12 03:45:09"
   }
 ]
