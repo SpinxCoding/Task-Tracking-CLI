@@ -58,8 +58,15 @@ def update_task(cur_id, change):
         
             
 def mark_task_done(cur_id):
+    if not task_storage:
+        sys.exit("No task available!")
     for pos, dicts in enumerate(task_storage):
-        print(dicts)
+        if dicts["id"] == cur_id:
+            task_storage[pos]["status"] = "done"
+            with open("task_storage.json", "w") as file:
+                json.dump(task_storage, file, indent= 2)
+            return
+    sys.exit("Please enter a valid ID!")
 
 def delete_task(id_del):
     global task_storage
