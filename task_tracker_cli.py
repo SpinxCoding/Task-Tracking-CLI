@@ -8,7 +8,7 @@ import time
 with open("task_storage.json", "a") as file:
     pass
 
-if len(sys.argv) < 2:
+if len(sys.argv) <= 2:
     sys.exit("Not enough arguments!")
 
 if sys.argv[1] != "task-cli":
@@ -105,10 +105,10 @@ def delete_task(id_del):
             return
     sys.exit("Please enter a valid id")
         
+def get_list():
+    if len(sys.argv) == 3:
+        print("Getting all lists")
 
-"""
-Add timestamp on when task was created called 'createdAt'
-"""
 
 #Add Task
 if sys.argv[2] == "add":
@@ -125,3 +125,6 @@ elif sys.argv[2] == "mark-done" and len(sys.argv) == 4 and sys.argv[3].isdigit()
 #Mark Task In Progress
 elif sys.argv[2] == "mark-in-progress" and len(sys.argv) == 4 and sys.argv[3].isdigit():
     task_in_progress(int(sys.argv[3]))
+#Fetch lists of users preference
+elif sys.argv[2] == "list":
+    get_list()
