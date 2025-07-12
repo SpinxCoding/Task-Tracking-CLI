@@ -114,7 +114,16 @@ def task_done():
             any_done = True
     if not any_done:
         sys.exit("No task to list")
-    
+
+def task_todo():
+    global task_storage
+    any_done = False
+    for loc, info in enumerate(task_storage):
+        if info["status"] == "todo":
+            print(f"({info['id']}) '{info['description']}' | Status: {info['status']} | Created: {info['createdAt']} | Last Updated: {info['updatedAt']}")
+            any_done = True
+    if not any_done:
+        sys.exit("No task to list")
 
 def catcher():
     sys.exit("No task to list")
@@ -123,7 +132,8 @@ def get_list():
     global task_storage
 
     list_opts = {
-        "done" : task_done
+        "done" : task_done,
+        "todo" : task_todo
     }
 
     #lists all tasks
