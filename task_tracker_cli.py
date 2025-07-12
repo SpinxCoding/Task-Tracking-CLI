@@ -2,6 +2,8 @@ import sys
 import json
 
 
+
+
 with open("task_storage.json", "a") as file:
     pass
 
@@ -27,20 +29,17 @@ with open("task_storage.json") as file:
         else:
             break
 
-task_type = ["add", "update", "delete"]
-
-
 
 def add_task(arg):
     if arg:
         with open("task_storage.json", "w") as file:
             global task_storage
             try:
-                task_storage.append({"task": arg, "id": id})
+                task_storage.append({"description": arg, "id": id, "status": "todo"})
                 json.dump(task_storage, file,indent=2)
             except IndexError:
-                task_storage.append({"task": arg, "id": id})
-                json.dump(task_storage, file)
+                task_storage.append({"description": arg, "id": id, "status": "todo"})
+                json.dump(task_storage, file, indent=2)
             file.write("\n")
         print(f"Task added successfully ({id})")
         return
@@ -51,14 +50,34 @@ def update_task(cur_id, change):
         sys.exit("Please Add a Task!")
     for i in enumerate(task_storage):
         if i[1]["id"] == cur_id:
-            task_storage[i[0]]["task"] = change
+            task_storage[i[0]]["description"] = change
             with open("task_storage.json", "w") as file:
                 json.dump(task_storage,file, indent=2)
             return
     sys.exit("Please enter a valid id")
         
             
-    
+def mark_task_done(cur_id):
+    if not task_storage:
+        sys.exit("No task available!")
+    for pos, dicts in enumerate(task_storage):
+        if dicts["id"] == cur_id:
+            task_storage[pos]["status"] = "done"
+            with open("task_storage.json", "w") as file:
+                json.dump(task_storage, file, indent= 2)
+            return
+    sys.exit("Please enter a valid ID!")
+
+def task_in_progress(cur_id):
+    if not task_storage:
+        sys.exit("No task available!")
+    for pos, dicts in enumerate(task_storage):
+        if dicts["id"] == cur_id:
+            task_storage[pos]["status"] = "in-progress"
+            with open("task_storage.json", "w") as file:
+                json.dump(task_storage, file, indent= 2)
+            return
+    sys.exit("Please enter a valid ID!")
 
 def delete_task(id_del):
     global task_storage
@@ -72,13 +91,21 @@ def delete_task(id_del):
             return
     sys.exit("Please enter a valid id")
         
-   
-    
 
+"""mark something done example: 'task-cli mark-done 1'"""
 
-if sys.argv[2] == task_type[0]:
+#Add Task
+if sys.argv[2] == "add":
     add_task(sys.argv[3])
-elif sys.argv[2] == task_type[1] and sys.argv[3].isdigit() and type(sys.argv[4]) == str:
+#Update Task
+elif sys.argv[2] == "update" and sys.argv[3].isdigit() and type(sys.argv[4]) == str:
     update_task(int(sys.argv[3]), sys.argv[4])
-elif sys.argv[2] == task_type[2] and len(sys.argv) == 4 and sys.argv[3].isdigit():
+#Remove Task
+elif sys.argv[2] == "delete" and len(sys.argv) == 4 and sys.argv[3].isdigit():
     delete_task(int(sys.argv[3]))
+#Mark Task Done
+elif sys.argv[2] == "mark-done" and len(sys.argv) == 4 and sys.argv[3].isdigit():
+    mark_task_done(int(sys.argv[3]))
+#Mark Task In Progress
+elif sys.argv[2] == "mark-in-progress" and len(sys.argv) == 4 and sys.argv[3].isdigit():
+    task_in_progress(int(sys.argv[3]))
