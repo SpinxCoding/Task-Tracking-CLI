@@ -35,11 +35,11 @@ def add_task(arg):
         with open("task_storage.json", "w") as file:
             global task_storage
             try:
-                task_storage.append({"description": arg, "id": id})
+                task_storage.append({"description": arg, "id": id, "status": "todo"})
                 json.dump(task_storage, file,indent=2)
             except IndexError:
-                task_storage.append({"description": arg, "id": id})
-                json.dump(task_storage, file)
+                task_storage.append({"description": arg, "id": id, "status": "todo"})
+                json.dump(task_storage, file, indent=2)
             file.write("\n")
         print(f"Task added successfully ({id})")
         return
@@ -58,7 +58,8 @@ def update_task(cur_id, change):
         
             
 def mark_task_done(cur_id):
-    ...
+    for pos, dicts in enumerate(task_storage):
+        print(dicts)
 
 def delete_task(id_del):
     global task_storage
@@ -73,19 +74,17 @@ def delete_task(id_del):
     sys.exit("Please enter a valid id")
         
 
-task_type = ["add", "update", "delete", "mark-done"]
-
 """mark something done example: 'task-cli mark-done 1'"""
 
 #Add Task
-if sys.argv[2] == task_type[0]:
+if sys.argv[2] == "add":
     add_task(sys.argv[3])
 #Update Task
-elif sys.argv[2] == task_type[1] and sys.argv[3].isdigit() and type(sys.argv[4]) == str:
+elif sys.argv[2] == "update" and sys.argv[3].isdigit() and type(sys.argv[4]) == str:
     update_task(int(sys.argv[3]), sys.argv[4])
 #Remove Task
-elif sys.argv[2] == task_type[2] and len(sys.argv) == 4 and sys.argv[3].isdigit():
+elif sys.argv[2] == "delete" and len(sys.argv) == 4 and sys.argv[3].isdigit():
     delete_task(int(sys.argv[3]))
 #Mark Task Done
-elif sys.argv[2] == task_type[3] and len(sys.argv) == 4 and sys.argv[3].isdigit():
+elif sys.argv[2] == "mark-done" and len(sys.argv) == 4 and sys.argv[3].isdigit():
     mark_task_done(int(sys.argv[3]))
