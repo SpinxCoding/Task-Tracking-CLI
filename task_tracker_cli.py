@@ -1,5 +1,6 @@
 import sys
 import json
+import time
 
 
 
@@ -34,8 +35,14 @@ def add_task(arg):
     if arg:
         with open("task_storage.json", "w") as file:
             global task_storage
+            year = time.localtime().tm_year
+            month = time.localtime().tm_mon
+            day = time.localtime().tm_mday
+            hour = time.localtime().tm_hour
+            minute = time.localtime().tm_min
+            second = time.localtime().tm_sec
             try:
-                task_storage.append({"description": arg, "id": id, "status": "todo"})
+                task_storage.append({"description": arg, "id": id, "status": "todo", "createdAt" : f"{year}-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second:02d}", "updatedAt" : f"{year}-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second:02d}"})
                 json.dump(task_storage, file,indent=2)
             except IndexError:
                 task_storage.append({"description": arg, "id": id, "status": "todo"})
@@ -50,7 +57,14 @@ def update_task(cur_id, change):
         sys.exit("Please Add a Task!")
     for i in enumerate(task_storage):
         if i[1]["id"] == cur_id:
+            year = time.localtime().tm_year
+            month = time.localtime().tm_mon
+            day = time.localtime().tm_mday
+            hour = time.localtime().tm_hour
+            minute = time.localtime().tm_min
+            second = time.localtime().tm_sec
             task_storage[i[0]]["description"] = change
+            task_storage[i[0]]["updatedAt"] = f"{year}-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second:02d}"
             with open("task_storage.json", "w") as file:
                 json.dump(task_storage,file, indent=2)
             return
