@@ -8,7 +8,7 @@ A simple command line interface as a task manager | JSON based.
 - Update task descriptions
 - Delete tasks
 - Mark tasks as 'in-progress' or 'done'
-- Able to list all tasks, with custom arguments ('todo', 'done', 'in-progress'
+- Able to list all tasks, with custom arguments ('todo', 'done', 'in-progress')
 
 ---
 
