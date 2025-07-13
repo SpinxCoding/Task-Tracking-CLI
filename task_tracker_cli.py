@@ -161,8 +161,8 @@ def get_list():
 
 #Add Task
 if sys.argv[2] == "add":
-    if len(sys.argv) != 4:
-        sys.exit("Invalid Argument")
+    if len(sys.argv) != 4 or sys.argv[3].strip() == "":
+        sys.exit("Invalid Argument or Input")
     add_task(sys.argv[3])
 #Update Task
 elif sys.argv[2] == "update" and sys.argv[3].isdigit() and type(sys.argv[4]) == str:
