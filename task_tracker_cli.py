@@ -63,8 +63,9 @@ def update_task(cur_id, change):
             hour = time.localtime().tm_hour
             minute = time.localtime().tm_min
             second = time.localtime().tm_sec
-            task_storage[i[0]]["description"] = change
-            task_storage[i[0]]["updatedAt"] = f"{year}-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second:02d}"
+            if task_storage[i[0]]["description"] != change:
+                task_storage[i[0]]["description"] = change
+                task_storage[i[0]]["updatedAt"] = f"{year}-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second:02d}"
             with open("task_storage.json", "w") as file:
                 json.dump(task_storage,file, indent=2)
             return
@@ -135,7 +136,7 @@ def inprogress():
         sys.exit("No task to list")
 
 def catcher():
-    sys.exit("No task to list")
+    sys.exit("Invalid Argument")
 
 def get_list():
     global task_storage
@@ -165,7 +166,9 @@ if sys.argv[2] == "add":
         sys.exit("Invalid Argument or Input")
     add_task(sys.argv[3])
 #Update Task
-elif sys.argv[2] == "update" and sys.argv[3].isdigit() and type(sys.argv[4]) == str:
+elif sys.argv[2] == "update" and sys.argv[3].isdigit() and len(sys.argv) == 5 and type(sys.argv[4]) == str:
+    if sys.argv[4].strip() == "":
+        sys.exit("Invalid Argument or Input")
     update_task(int(sys.argv[3]), sys.argv[4])
 #Remove Task
 elif sys.argv[2] == "delete" and len(sys.argv) == 4 and sys.argv[3].isdigit():
@@ -179,3 +182,5 @@ elif sys.argv[2] == "mark-in-progress" and len(sys.argv) == 4 and sys.argv[3].is
 #Fetch lists of users preference
 elif sys.argv[2] == "list":
     get_list()
+else:
+    sys.exit("ERROR | INVALID ARGUMENTS")
