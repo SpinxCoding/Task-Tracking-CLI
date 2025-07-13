@@ -1,12 +1,14 @@
 import sys
 import json
 import time
+import os
 
 
 
 
-with open("task_storage.json", "a") as file:
-    pass
+if not os.path.exists("task_storage.json"):
+    with open("task_storage.json", "w") as file:
+        file.write("[]")
 
 if len(sys.argv) <= 2:
     sys.exit("Not enough arguments!")
